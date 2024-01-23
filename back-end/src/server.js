@@ -4,7 +4,7 @@
 //
 // server.js (Javascrip File)
 //
-// About: This script initiate fastfy server and
+// About: This script initiates fastify server and
 // set API endpoints
 //
 // Criação:     23 Jan 2023
@@ -16,14 +16,18 @@
 ************************************************/
 
 import { fastify } from "fastify"
+import ProductService from "./products-service.js"
 
 //Create fastify server
 const server = fastify();
 
+const productService = new ProductService();
+
 // Post API request
 // Create a new product in postgres database
-server.post("/product", (request, reply) => {
-    const { title, description, duration } = request.body;
+server.post("/products", async (request, reply) => {
+
+    await productService.createProduct(request.body)
 
     return reply.status(201).send();
 });
@@ -32,33 +36,34 @@ server.post("/product", (request, reply) => {
 // Get API request
 // Returns all products
 // user category= query to search by category
-server.get("/product", (request, reply) => {
-    const search = request.query.category;
+server.get("/products", async (request, reply) => {
+    const category = request.query.category;
 
-    if(search) {
-        return "get request whit category=" + search
-    } else {
-        return "get request"
-    }
+    return await productService.getAllProducts(category);
 });
 
 // Put API request
-server.put("/product/:name", (request, reply) => {
-    const productName = request.params.id;
-    const { title, description, duration } = request.body;
-
-    console.log("PUT call whit name: " + productName);
+server.put("/products/:id", async (request, reply) => {
+    const productId = request.params.id;
+    productService.updateProduct(productId, request.body);
 
     return reply.status(204).send();
 });
 
-// Delete API request
-server.delete("/product/:name", (request, reply) => {
-    const productName = request.params.id;
+// Delete Product API request
+server.delete("/products/:id", (request, reply) => {
+    const productId = request.params.id;
 
-    console.log("DELETE call whit name: " + productName);
+    productService.deleteProduct(productId);
 
     return reply.status(204).send();
+});
+
+// Get All Categories API request
+// This request return all categories and
+// how many products this category has
+server.get("/categories", async (request, reply) => {
+    return await productService.getAllCategories(); 
 });
 
 // Launch server on port 4444

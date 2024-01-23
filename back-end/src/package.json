@@ -6,11 +6,14 @@
   "type": "module",
   "scripts": {
     "test": "jest --passWithNoTests",
-    "start": "node --watch server.js"
+    "start": "node --env-file=.env --watch --no-warnings server.js",
+    "createdb": "node --env-file=.env --watch create-db-tables"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.25.2"
+    "fastify": "^4.25.2",
+    "postgres": "^3.4.3",
+    "uuid": "^9.0.1"
   }
 }

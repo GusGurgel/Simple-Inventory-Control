@@ -1,1 +1,43 @@
+###
+
+# Simple POST product exemple
 POST http://localhost:4444/products
+Content-Type: application/json
+
+{
+    "pName" : "IPhone 5",
+    "pCategory" : "Electronics",
+    "pQuantity" : 20
+}
+
+###
+
+# GET all products exemple
+GET http://localhost:4444/products
+
+###
+
+# GET all products {with category} exemple
+GET http://localhost:4444/products?category=Game
+
+###
+
+# GET all categories
+GET http://localhost:4444/categories
+
+
+###
+
+# Update product exemple
+PUT http://localhost:4444/products/id
+Content-Type: application/json
+
+{
+    "pName" : "IPhone 5",
+    "pCategory" : "Electronics",
+    "pQuantity" : 20
+}
+
+###
+
+DELETE http://localhost:4444/products/id
