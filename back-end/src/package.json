@@ -1,0 +1,16 @@
+{
+  "name": "frontend-api-sic",
+  "version": "1.0.0",
+  "description": "Frontend API for Simple Inventory Control Project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest --passWithNoTests",
+    "start": "node --watch server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.25.2"
+  }
+}
